@@ -9,9 +9,10 @@
 <body>
 
 <form method = "post" action = "my.do" >
-	<p> 아이디 : <input type = "text" name = "id">
-	<p> 비밀번호 : <input type = "password" name = "passwd">
-	<p> <input type = "submit" value = "전송" >
+	<p> 아이디 : <input type = "text" name = "id"> 
+	<p> 비밀번호 : <input type = "password" name = "passwd"> 
+	<p> <input type = "submit" value = "전송"> 
+
 
 </form>
 
