@@ -56,9 +56,9 @@ public class MVCBoardDAO extends DBConnPool {
                + "    ) Tb "
                + " ) "
                + " WHERE rNum BETWEEN ? AND ?";
-
-        System.out.println(query); 	// 콘솔에 전체 쿼리 출력
         
+        System.out.println(query);  //콘솔에 전체 쿼리 출력 
+
         try {
             psmt = con.prepareStatement(query);
             psmt.setString(1, map.get("start").toString());
@@ -93,15 +93,16 @@ public class MVCBoardDAO extends DBConnPool {
 	
 	
 	//목록 상세 검색 (Select ) : 주어진 일련 번호에 해당 하는 값을 DTO 에 담 아 반환합니다. (한페이지 read)
-		// ViewController 요청을 처리
+    //ViewController 요청을 처리 
+    
     public MVCBoardDTO selectView(String idx) {
     	MVCBoardDTO dto = new MVCBoardDTO();
-    	String query = "SELECT * FROM mvcboard WHERE idx = ?";
+    	String query = "SELECT * FROM mvcboard WHERE idx = ?"; 
     	
     	try {
-    		psmt = con.prepareStatement(query);
-    		psmt.setString(1, idx);
-    		rs = psmt.executeQuery();
+    		psmt = con.prepareStatement(query); 
+    		psmt.setString(1,idx); 
+    		rs = psmt.executeQuery(); 
     		
     		if (rs.next()) {
     			dto.setIdx(rs.getString(1));
@@ -116,31 +117,37 @@ public class MVCBoardDAO extends DBConnPool {
     			dto.setVisitcount(rs.getInt(10));
     			
     		}
+    		
     	}catch (Exception e) {
-    		System.out.println("게시물 상세 정보 출력중 예외 발생");
+    		System.out.println("게시물 상세정보 출력중 예외 발생");
     		e.printStackTrace();
     	}
     	
-    	return dto;
+    	return dto; 
     }
     
-    // 주어진 일련 번호에 해당하는 게시물의 조회수를 1 증가 시킴.
+    //주어진 일련 번호에 해당하는 게시물의 조회수를 1 증가 시킴. 
     public void updateVisitCount(String idx) {
     	String query = "UPDATE mvcboard SET "
     			+ " visitcount = visitcount + 1 "
-    			+ " WHERE idx = ?";
+    			+ " WHERE idx = ?"; 
+    	
     	try {
-    		psmt = con.prepareStatement(query);
-    		psmt.setString(1, idx);
-    		psmt.executeUpdate();
+    		psmt = con.prepareStatement(query); 
+    		psmt.setString (1, idx); 
+    		psmt.executeUpdate(); 
     		
     	}catch (Exception e) {
     		e.printStackTrace();
-    		System.out.println("게시물 조회수 증가시 예외 발생 ");
-    	}
+    		System.out.println("게시물 조회수 증가시 예외 발생");
+    	}    	
     }
-    	
     
+    
+    
+    
+    
+	
 	//데이터 삽입 (Insert)
 	public int insertWrite (MVCBoardDTO dto) {
 		int result = 0 ; 
@@ -170,64 +177,66 @@ public class MVCBoardDAO extends DBConnPool {
 	}
 	
 	
-	
-	
-	
 	//데이터 수정 (Update)
 	public int updatePost (MVCBoardDTO dto) {
-		int result = 0;
+		int result = 0 ; 
 		
 		try {
-			String query = 		"UPDATE mvcboard "
-								 + " SET title = ? , name = ? , content = ? , ofile = ? , sfile = ? "
-								 + " WHERE idx = ? and pass = ?";
-			// 쿼리문 준비
-			psmt = con.prepareStatement(query);
+			String query =    "UPDATE mvcboard "
+							+ " SET title = ? , name = ?, content = ?, ofile = ?, sfile = ? "
+							+ " WHERE idx = ? and pass = ?"; 
+			//쿼리문 준비 
+			psmt = con.prepareStatement(query); 
+			
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getName());
 			psmt.setString(3, dto.getContent());
 			psmt.setString(4, dto.getOfile());
 			psmt.setString(5, dto.getSfile());
 			psmt.setString(6, dto.getIdx());
-			psmt.setString(7, dto.getPass());
+			psmt.setString(7, dto.getPass()); 
 			
-			result = psmt.executeUpdate();		// update 성공시 result 변수의 값 > 0
+			result = psmt.executeUpdate();   //update성공시 result 변수의 값이 > 0 	
 			
+			//System.out.println("result : " + result);
+					
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Update시 예외 발생");
+			System.out.println("Update시 예외발생");
 		}
-		
-		return result;		// result > 0 : 수정 성공 , result = 0 : 수정 실패
+				
+		return result ;   //result > 0 : 수정 성공, result = 0 : 수정 실패 		
 	}
+
 	
 	//데이터 삭제 (delete)
-	public int deletePost (String idx) {
-		int result = 0;
+	public int deletePost(String idx) {
+		int result = 0 ; 
 		
 		try {
-			String query = "DELETE mvcboard WHERE idx = ?";
-			psmt = con.prepareStatement(query);
+			String query = "DELETE mvcboard WHERE idx = ?"; 
+			psmt = con.prepareStatement(query); 
 			psmt.setString(1, idx);
 			
-			result = psmt.executeUpdate();		// result > 0 : 삭제 성공 , result = 0 : 삭제 실패
+			result = psmt.executeUpdate();  //result > 0 삭제 성공, result = 0 : 삭제 실패 
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("delete시 예외 발생");
+			System.out.println("delete 시 예외 발생 ");
 		}
-		
-		return result;
+				
+		return result; 				
 	}
 	
 	
-	// 다운로드 횟수를 증가 시키는 메소드
+	
+	//다운 로드 횟수를 증가시키는 메소드 
 	public void downCountPlus (String idx) {
 		String query = "UPDATE mvcboard SET downcount = downcount + 1 "
-							+ " WHERE idx = ?";
+					   + " WHERE idx = ?"; 
 		
 		try {
-			psmt = con.prepareStatement(query);
+			psmt = con.prepareStatement(query); 
 			psmt.setString(1, idx);
 			psmt.executeUpdate();
 			
@@ -235,33 +244,37 @@ public class MVCBoardDAO extends DBConnPool {
 			e.printStackTrace();
 			System.out.println("다운로드 횟수 증가시 오류 발생");
 		}
-		
 	}
 	
-	// 비밀번호 확인 메소드 (입력한 비밀번호가 DataBase의 값과 일치하는지 확인)
+	// 비밀번호를 확인 하는 메소드 (입력한 비밀 번호가 DataBase 의 값과 일치하는지 확인 
 	public boolean confirmPassword(String pass, String idx) {
-		boolean isCorr = true;
-		
+		boolean isCorr = true; 
 		try {
-				// COUNT(*) = 1 : 레코드가 존재하면 : client에서 넘긴 pass , idx 가 DB에 존재한다.
-				// COUNT(*) = 0 : 레코드가 존재하지 않으면 : client에서 넘긴 값이 DB에 존재하지 않는다.
+				//COUNT(*) = 1 : 레코드가 존재하면 : client에서 넘긴 pass , idx DB에 존재 
+				//COUNT(*) = 0 : 레코드가 존재하지 않으면 client에서 넘긴 값이 DB에 존재하지 않는다. 
 			String query = "SELECT COUNT(*) FROM mvcboard WHERE pass = ? and idx = ?";
-			psmt = con.prepareStatement(query);
+			psmt = con.prepareStatement(query); 
 			psmt.setString(1, pass);
 			psmt.setString(2, idx);
-			rs = psmt.executeQuery();
+			rs = psmt.executeQuery(); 
 			
-			rs.next();		
-			if (rs.getInt(1)==0) {
-				isCorr = false;
+			rs.next(); 	
+			if (rs.getInt(1) == 0) {
+				isCorr = false; 
 			}
-			
+					
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("비밀번호 확인시 예외 발생 ");
-		}
-		
-		return isCorr;
+			System.out.println("비밀번호 확인시 예외 발생");
+		}		
+		return isCorr; 
 	}
 	
+	
+	
+	
+	
+	
+	
+
 }

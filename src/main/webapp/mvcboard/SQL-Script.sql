@@ -33,26 +33,7 @@ commit;
 
 select * from mvcboard;
 
-desc mvcboard;
 
-
--- DB에서 특정 레코드만 출력 할 때
-SELECT * FROM (
-    SELECT Tb.*, ROWNUM rNum FROM ( 
-    SELECT * FROM mvcboard ORDER BY idx DESC    ) Tb)  
-    WHERE rNum BETWEEN 5 AND 6;
-
-
--- 검색 기능을 사용해서 출력 할 때
-SELECT * FROM (    
-    SELECT Tb.*, ROWNUM rNum FROM (       
-        SELECT * FROM mvcboard WHERE title LIKE '%제목%'
-        ORDER BY idx DESC) Tb  )  
-WHERE rNum BETWEEN 1 AND 2
-
-
-select count(*) from mvcboard
-where pass = '1234' and idx = 1;
 
 
 

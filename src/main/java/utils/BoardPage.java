@@ -40,7 +40,7 @@ public class BoardPage {
                          + "'>[마지막 페이지]</a>";
         }
         
-        // System.out.println(pagingStr);
+      //  System.out.println(pagingStr);
 
         return pagingStr;
     }

@@ -70,7 +70,7 @@
   	<url-pattern>/mvc_test/my.do</url-pattern>
   </servlet-mapping>
   
-  <!-- MVCBoard 글 목록 보기 Controller 매핑  -->
+  <!-- MVCBoard 글목록 보기 Controller 매핑  -->
   <servlet>
   	<servlet-name>MVCBoardList</servlet-name>
   	<servlet-class>model2.mvcboard.ListController</servlet-class>
@@ -80,7 +80,8 @@
   	<url-pattern>/mvcboard/list.do</url-pattern>
   </servlet-mapping>
   
-  <!-- MVCBoard 글 내용 보기 Controller 매핑  -->
+    <!-- MVCBoard 글내용 보기 Controller 매핑  -->
+    <!--   어노테이션 @WebSerlet ("/mvcboard/view.do") 
   <servlet>
   	<servlet-name>MVCBoardView</servlet-name>
   	<servlet-class>model2.mvcboard.ViewController</servlet-class>
@@ -89,8 +90,10 @@
   	<servlet-name>MVCBoardView</servlet-name>
   	<url-pattern>/mvcboard/view.do</url-pattern>
   </servlet-mapping>
-  
-  <!-- MVCBoard 글 수정/삭제 Controller 매핑  -->
+  -->
+   
+  <!-- MVCBoard 글 수정/삭제  Controller 매핑  -->
+  <!--  @WebServlet("/mvcboard/pass.do")
   <servlet>
   	<servlet-name>MVCBoardPass</servlet-name>
   	<servlet-class>model2.mvcboard.PassController</servlet-class>
@@ -99,10 +102,10 @@
   	<servlet-name>MVCBoardPass</servlet-name>
   	<url-pattern>/mvcboard/pass.do</url-pattern>
   </servlet-mapping>
-  
+  -->
   
     
-  <!-- 페이징 처리를 위한 설정 (변수값 할당) 출력 레코드 수 : 10개, 페이지 수 : 5 -->
+  <!-- 페이징 처리를 위한 설정 (변수값 할당) 출력레코드수:10개, 페이지수 : 5 -->
   <context-param>
   	<param-name>POSTS_PER_PAGE</param-name>
   	<param-value>10</param-value> 
@@ -113,7 +116,12 @@
   	<param-value>5</param-value> 
   </context-param>
   
+  <!-- 첨부 파일의 최대 용량 설정 (1Mbyte)  -->
   
+  <context-param>
+  	<param-name>maxPostSize</param-name>
+  	<param-value>1024000</param-value> 
+  </context-param>
   
   
   
