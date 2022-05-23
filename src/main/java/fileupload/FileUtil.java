@@ -10,10 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
-
-
-
-
 //파일 업로드 처리하는 클래스 
 
 public class FileUtil {
@@ -48,55 +44,53 @@ public class FileUtil {
 		}
 	}
 	
-	//파일 다운로드 처리 메소드 : 명시한 파일을 찾아 다운로드 합니다. 
-	public static void download (HttpServletRequest req, HttpServletResponse resp, 
-			String directory , String sfileName, String ofileName) {
-		//upload 폴더의 서버의 물리적으 절대경로 저장
-		String sDirectory = req.getServletContext().getRealPath(directory); 
-		
-		 try {
-			 //파일을 찾아 입력 스트림 생성 
-			 File file = new File (sDirectory, sfileName); 
-			 InputStream iStream = new FileInputStream(file); 
-			 
-			 //한글 깨짐 방지 처리 (파일명이 한글일때 ) 
-			 String client = req.getHeader("User-Agent"); 
-			 if (client.indexOf("WOW64") == -1) {
-				 ofileName = new String(ofileName.getBytes("UTF-8"), "ISO-8895-1");
-			 }else {
-				 ofileName = new String(ofileName.getBytes("KSC5601"), "ISO-8895-1"); 
-			 }
-			 
-			 //파일 다운용 응답 헤더 설정 
-			 resp.reset();
-			 resp.setContentType("application/octet-stream");
-			 resp.setHeader("Content-Disposition", 
-					 		"attachment; filename\"" + ofileName + "\""); 
-			 resp.setHeader("Content-Length", "" + file.length()); 
-			 
-			 //respose 내장 객체로 부터 새로운 출력 스트림 생성 
-			 OutputStream oStream = resp.getOutputStream(); 
-			 
-			 //출력 스트림에 파일 내용 출력 
-			 byte b[]  = new byte [(int)file.length()]; 
-			 int readBuffer = 0 ; 
-			 
-			 while ((readBuffer = iStream.read(b)) > 0) {
-				 oStream.write(b , 0, readBuffer); 			 
-			 }
-			 
-			 //입출력 스트림 객체 닫음. 
-			 iStream.close();
-			 oStream.close(); 	 
-			 
-		 }catch (Exception e) {
-			 e.printStackTrace();
-			 System.out.println("파일 처리시 예외 발생했습니다. ");
-		 }
-		
-	}
-	
-	
+	// 명시한 파일을 찾아 다운로드합니다.
+    public static void download(HttpServletRequest req, HttpServletResponse resp,
+            String directory, String sfileName, String ofileName) {
+        String sDirectory = req.getServletContext().getRealPath(directory);
+        try {
+            // 파일을 찾아 입력 스트림 생성
+            File file = new File(sDirectory, sfileName);
+            InputStream iStream = new FileInputStream(file);
+
+            // 한글 파일명 깨짐 방지
+            String client = req.getHeader("User-Agent");
+            if (client.indexOf("WOW64") == -1) {
+                ofileName = new String(ofileName.getBytes("UTF-8"), "ISO-8859-1");
+            }
+            else {
+                ofileName = new String(ofileName.getBytes("KSC5601"), "ISO-8859-1");
+            }
+
+            // 파일 다운로드용 응답 헤더 설정
+            resp.reset();
+            resp.setContentType("application/octet-stream");
+            resp.setHeader("Content-Disposition",
+                           "attachment; filename=\"" + ofileName + "\"");
+            resp.setHeader("Content-Length", "" + file.length() );
+
+            //out.clear();  // 출력 스트림 초기화
+
+            // response 내장 객체로부터 새로운 출력 스트림 생성
+            OutputStream oStream = resp.getOutputStream();
+
+            // 출력 스트림에 파일 내용 출력
+            byte b[] = new byte[(int)file.length()];
+            int readBuffer = 0;
+            while ( (readBuffer = iStream.read(b)) > 0 ) {
+                oStream.write(b, 0, readBuffer);
+            }
+
+            // 입/출력 스트림 닫음
+            iStream.close();
+            oStream.close();
+        }
+        catch (Exception e) {
+            System.out.println("파일을 찾을 수 없습니다.");
+            e.printStackTrace();
+        }
+     
+    }
 	
 	
 	
