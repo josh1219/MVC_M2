@@ -78,6 +78,16 @@ public class MVCBoardDAO extends DBConnPool {
                 dto.setDowncount(rs.getInt(8));
                 dto.setPass(rs.getString(9));
                 dto.setVisitcount(rs.getInt(10));
+                
+                /*
+                System.out.println( "DB에서 가져온 값(idx) : " + rs.getString(1));
+                System.out.println("DB에서 가져온 값 (name)" + rs.getString(2));
+
+                System.out.println("==================");
+                
+                System.out.println("DTO에서 가져온값 (idx)" + dto.getIdx());
+                System.out.println("DTO에서 가져온 값 (Name)" + dto.getName());
+                */
 
                 board.add(dto);
             }
@@ -167,7 +177,7 @@ public class MVCBoardDAO extends DBConnPool {
 		psmt.setString(6, dto.getPass());
 		
 		result = psmt.executeUpdate();  //insert가 성공일때 result > 0   //DB 에 값을 저장 
-		
+				//result : 0 일때 <== Insert 실패 , result : 1 일때 insert 성공 
 		
 		}catch (Exception e) {
 			e.printStackTrace();
