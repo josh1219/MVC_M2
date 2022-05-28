@@ -1,27 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
-<h2> session ê°ì²´ì˜ ë³€ìˆ˜ì— í• ë‹¹ëœ ê°’ ê°€ì ¸ì˜¤ê¸°</h2>
+<h2> session °´Ã¼ÀÇ º¯¼ö¿¡ ÇÒ´çµÈ °ª °¡Á®¿À±â </h2>
 
-<%
-	// Session ê°ì²´ì˜ ê°’ì„ ê°€ì ¸ì˜¬ë•Œ Object íƒ€ì…ì´ë¯€ë¡œ ë‹¤ìš´ ìºìŠ¤íŒ…ì´ í•„ìš”í•˜ë‹¤.
+<% 
+	//Session °´Ã¼ÀÇ °ªÀ» °¡Á®¿Ã¶§ Object Å¸ÀÔÀÌ¹Ç·Î ´Ù¿î Ä³½ºÆÃÀÌ ÇÊ¿äÇÔ.
 	
-		// ëª¨ë“  í˜ì´ì§€ì—ì„œ ì„¸ì…˜ì˜ ë³€ìˆ˜ì— ë“¤ì–´ê°„ ê°’ì„ ê°€ì ¸ì™€ì„œ null ì¼ ê²½ìš° : ë¡œê·¸ì¸ì´ ì•ˆ ëœ ìƒíƒœ
-		// getAttribute <== ì„¸ì…˜ ê°ì²´ì— ë‹´ê¸´ í•˜ë‚˜ì˜ ë³€ìˆ˜ì˜ ê°’ì„ ê°€ì ¸ì˜¬ë•Œ
-	String user_id = (String) session.getAttribute("userID");
+	 	//¸ğµç ÆäÀÌÁö¿¡¼­ ¼¼¼ÇÀÇ º¯¼ö¿¡ µé¾î°£ °ªÀ» °¡Á®¿Í¼­ null ÀÏ °æ¿ì : ·Î±×ÀÎÀÌ ¾ÈµÈ »óÅÂ 
+	 	//getAttribute <== ¼¼¼Ç°´Ã¼¿¡ ´ã±ä ÇÏ³ªÀÇ º¯¼öÀÇ °ªÀ» °¡Á®¿Ã¶§ 
+	String user_id = (String) session.getAttribute("userID"); 
+			
+	String user_pw	= (String) session.getAttribute("userPW"); 
+	
+	out.println ("<p> ¼³Á¤µÈ ¼¼¼ÇÀÇ ¼Ó¼º°© 1 : " + user_id); 
+	out.println ("<p> ¼³Á¤µÈ ¼¼¼ÇÀÇ ¼Ó¼º°© 2 : " + user_pw); 
 
-	String user_pw = (String) session.getAttribute("userPW");
-	
-	out.println("<P> ì„¤ì •ëœ ì„¸ì…˜ì˜ ì†ì„± ê°’ 1 : " + user_id);
-	out.println("<P> ì„¤ì •ëœ ì„¸ì…˜ì˜ ì†ì„± ê°’ 2 : " + user_pw);
+
 
 %>
+
 
 </body>
 </html>

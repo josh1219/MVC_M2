@@ -1,33 +1,39 @@
-<%@page import="java.util.Enumeration"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+ 
+ <%@ page import = "java.util.Enumeration" %>   
+    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
-<h2> session ê°ì²´ì— ì €ì¥ëœ ëª¨ë“  ë³€ìˆ˜ì˜ ê°’ì„ ê°€ì ¸ì˜¬ë•Œ (getAtributeNames()) </h2>
+<h2>  session °´Ã¼¿¡ ÀúÀåµÈ ¸ğµç º¯¼öÀÇ °ªÀ» °¡Á®¿Ã¶§ (getAttributeNames())</h2>
 
-<%
-		String name;	// session ê°ì²´ì˜ ì €ì¥ëœ í•„ë“œëª…
-		String value;		// session ê°ì²´ì˜ ì €ì¥ëœ í•„ë“œì˜ ê°’
+<% 
+	String name ; 	//session °´Ã¼ÀÇ ÀúÀåµÈ ÇÊµå¸í 
+	String value; 	//session °´Ã¼ÀÇ ÀúÀåµÈ ÇÊµåÀÇ °ª
+	
+		//session °´Ã¼ÀÇ ´ã±ä ¸ğµç ÇÊµå¸¦ °¡Á®¿Â´Ù. 
+	Enumeration en = session.getAttributeNames(); 
+	
+	int i = 0 ; 
+	
+	while (en.hasMoreElements()){
+		i++; 
+		name = en.nextElement().toString();  //session °´Ã¼¿¡ ÀúÀåµÈ º¯¼ö¸íÀ» °¡Á®¿Â´Ù. 
+		value = session.getAttribute(name).toString();
 		
-			// session ê°ì²´ì— ë‹´ê¸´ ëª¨ë“  í•„ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
-		Enumeration en = session.getAttributeNames();
+		out.println ( "¼³Á¤µÈ ¼¼¼Ç ¼Ó¼ºÀÌ¸§ [ " + i + "] : " + name + "<br>"); 
+		out.println ( "¼³Á¤µÈ ¼¼¼Ç ¼Ó¼º°ª [ " + i + "] : " + value + "<br>"); 
 		
-		int i = 0;
 		
-		while (en.hasMoreElements()) {
-			i++;
-			name = en.nextElement().toString();	//session ê°ì²´ì— ì €ì¥ëœ ë³€ìˆ˜ëª…ì„ ê°€ì ¸ì˜¨ë‹¤.
-			value = session.getAttribute(name).toString();
-			
-			out.println("ì„¤ì •ëœ ì„¸ì…˜ ì†ì„±ì´ë¦„ [" + i + "] : " + name + "<br>");
-			out.println("ì„¤ì •ëœ ì„¸ì…˜ ì†ì„±ê°’ [" + i + "] : " + value + "<br>");
-		}
+	}
+	
 %>
+
 
 </body>
 </html>

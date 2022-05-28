@@ -1,67 +1,71 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title> Session </title>
+<meta charset="UTF-8">
+<title>Session </title>
 </head>
 <body>
 
-<table border="1" width = "90%">
-	<tr>
-		<td align = "center">
-		<!-- ·Î±×ÀÎ ¿©ºÎ¿¡ µû¸¥ ¸Ş´º º¯È­ -->
-		<% if (session.getAttribute("userId")== null) {	%>
-			<a href = "../session02/LoginForm.jsp"> ·Î±×ÀÎ </a>
-		<% }else { %>
-			<a href = "../session02/Logout.jsp"> ·Î±×¾Æ¿ô </a>
-		<% } %>
+<table border="1" width = "90%"> 
+	<tr> 
+		<td align = "center"> 
+		<!-- ë¡œê·¸ì¸ ì—¬ë¶€ì— ë”°ë¥¸ ë©”ë‰´ ë³€í™”  -->
+		<% if (session.getAttribute("UserId") == null   ) { %> 
+		 
+			<a href = "../session02/LoginForm.jsp">ë¡œê·¸ì¸</a>
+			
+		<% }else {  %>
+		
+			<a href = "../session02/Logout.jsp">ë¡œê·¸ì•„ì›ƒ</a>
+			
+		<% } %>		
 		</td>
 	</tr>
 </table>
 
-<h2> ·Î±×ÀÎ ÆäÀÌÁö </h2>
+<h2> ë¡œê·¸ì¸ í˜ì´ì§€ </h2>
 
-<span style = "color:red ; font-size:1.2em ;">
-	<!-- ·Î±×ÀÎ ¿¡·¯ ¸Ş¼¼Áö Ãâ·Â -->
-	<%= request.getAttribute("LoginErrMsg") == null ? "" : request.getAttribute("LoginErrMsg")
+<span style = "color:red; font-size:1.2em;">
+	<!-- ë¡œê·¸ì¸ ì—ëŸ¬ ë©”ì„¸ì§€ ì¶œë ¥  -->
+	<%= request.getAttribute("LoginErrMsg") == null ? "" : request.getAttribute("LoginErrMsg") 
 	
 	%>
 </span>
 
 <%
-	if (session.getAttribute("userId")== null) {	// ·Î±×¾Æ¿ô »óÅÂÀÏ¶§
-%>
-	<!-- ·Î±×¾Æ¿ô »óÅÂÀÏ¶§ HTML Ã³¸® ºÎºĞ -->
+	if (session.getAttribute("UserId") == null ) {   //ë¡œê·¸ì•„ì›ƒ ìƒíƒœì¼ë•Œ   
+%>    
+	<!-- ë¡œê·¸ì•„ì›ƒ ìƒíƒœì¼ë•Œ HTML ì²˜ë¦¬ ë¶€ë¶„  -->
 	
-	<script>		
-		function validateForm (form) {
+	<script>     
+		function validateForm (form){
 			if (!form.user_id.value){
-				alert ("¾ÆÀÌµğ¸¦ ÀÔ·Â ÇØÁÖ¼¼¿ä. ");
-				return false;
+				alert ("ì•„ì´ë””ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”");
+				return false; 
 			}
-			if (form.user_pw.value == ""){
-				alert ("ÆĞ½º¿öµå¸¦ ÀÔ·Â ÇØÁÖ¼¼¿ä. ");
-				return false;
-			}
-		}
+			if (form.user_pw.value ==""){
+				alert ("íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”"); 
+				return false; 
+			}	
+		}	
 	</script>
-	<form action ="LoginProcess.jsp" method = "post" name = "LoginFrm"
+	<form action = "LoginProcess.jsp" method = "post" name ="loginFrm"
 		 onsubmit = "return validateForm(this);">
-		 <p> ¾ÆÀÌµğ : <input type = "text" name = "user_id">
-		 <p> ÆĞ½º¿öµå : <input type = "password" name = "user_pw">
-		 <p><input type = "submit" value = "·Î±×ÀÎÇÏ±â">
+		<p> ì•„ì´ë”” :  <input type = "text" name = "user_id"> 
+		<p> íŒ¨ìŠ¤ì›Œë“œ : <input type = "password" name = "user_pw"> 
+		<p> <input type= "submit" value ="ë¡œê·¸ì¸í•˜ê¸°">	 
 	</form>
+		
 	
+<% }else {  //ë¡œê·¸ì¸ ìƒíƒœì¼ë•Œ  %>      
+	<!--ë¡œê·¸ì¸ ìƒíƒœì¼ë•Œ HTML ì²˜ë¦¬ ë¶€ë¶„   -->
+	<%= session.getAttribute("UserName") %>  íšŒì›ë‹˜, ë¡œê·¸ì¸ í•˜ì…¨ìŠµë‹ˆë‹¤. <br> 
+	<a href ="Logout.jsp"> [ë¡œê·¸ì•„ì›ƒ]</a>
 	
-	
-<% }else { // ·Î±×ÀÎ »óÅÂÀÏ¶§ %>
-	<!-- ·Î±×ÀÎ »óÅÂÀÏ¶§ HTML Ã³¸® ºÎºĞ -->	
-	<%= session.getAttribute("userName") %> È¸¿ø´Ô, ·Î±×ÀÎ ÇÏ¼Ì½À´Ï´Ù. <br>
-	<a href = "Logout.jsp"> [·Î±×¾Æ¿ô] </a>
-	
-
 <% } %>
+
+
 </body>
 </html>
