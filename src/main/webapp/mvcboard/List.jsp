@@ -11,6 +11,7 @@
 <style>a{text-decoration:none;}</style>
 </head>
 <body>
+<br><br><br><br><br><br><br><br><br>
     <h2>파일 첨부형 게시판 - 목록 보기(List)</h2>
 
     <!-- 검색 폼 -->
